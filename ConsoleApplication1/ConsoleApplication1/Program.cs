@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 
 namespace StegDiss
 {
@@ -11,7 +6,8 @@ namespace StegDiss
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Select an option\n 1. LSB\n 2. PVD\n 3. Jpeg DCT");
+            Console.ReadLine();//blocking program ending - debug
         }
     }
 }
