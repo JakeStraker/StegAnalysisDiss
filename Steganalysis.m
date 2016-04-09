@@ -1,0 +1,10 @@
+imref = imread('standard_test_images/lake.bmp');
+disp(entropy(imref));
+noisy = imnoise(imref,'salt & pepper',0.02);
+[pksnr, snr] = psnr(noisy, imref);
+imref2 = imread('standard_test_images - Modified/lake.bmp');
+disp(entropy(imref2));
+noisy = imnoise(imref2,'salt & pepper',0.02);
+[pksnr2, snr] = psnr(noisy, imref2);
+disp(pksnr);
+%disp(pksnr2);
