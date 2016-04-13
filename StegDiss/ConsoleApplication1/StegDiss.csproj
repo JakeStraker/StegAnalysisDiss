@@ -59,11 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DCT.cs" />
     <Compile Include="LSB.cs" />
+    <Compile Include="LSBE.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PVD.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

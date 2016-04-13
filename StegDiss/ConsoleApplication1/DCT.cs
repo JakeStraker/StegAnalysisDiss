@@ -1,6 +1,0 @@
-﻿namespace StegDiss
-{
-    class DCT
-    {
-    }
-}
