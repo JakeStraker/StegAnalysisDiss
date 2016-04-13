@@ -106,9 +106,10 @@ namespace StegDiss
             for (int y = 0; y < imHeight; y++)
             {
                 // Go through every column
-                for (int x = 0; x < imWidth; x++)
+                for (int x = 0; x < imWidth-1; x++)
                 {
                     Color pixel = image.GetPixel(x, y);
+                    Color pixel2 = image.GetPixel(x + 1, y);
                     // for each pixel, run this loop 3 times (representing the 3 colours)
                     for (int n = 0; n < 3; n++)
                     {
