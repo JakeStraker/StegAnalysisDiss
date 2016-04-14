@@ -1,9 +1,9 @@
-LSBEImg = imread('houseLSBE.bmp');
-origImg = imread('house.bmp');
-LSBOImg = imread('houseLSBO.bmp');
-val = std2(LSBEImg);
-val2 = std2(origImg);
-val3 = std2(LSBOImg);
-disp(val);
-disp(val2);
-disp(val3);
+originalImage = rgb2gray(imread('cameraman.bmp'));
+lsboImage = rgb2gray(imread('cameramanLSBO.bmp'));
+lsbeImage = rgb2gray(imread('cameramanLSBE.bmp'));
+disp(entropy(originalImage));
+disp(entropy(lsboImage));
+disp(entropy(lsbeImage));
+disp(mean(originalImage(:)));
+disp(mean(lsboImage(:)));
+disp(mean(lsbeImage(:)));
