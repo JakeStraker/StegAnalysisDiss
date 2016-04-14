@@ -12,6 +12,7 @@ namespace StegDiss
         {
             try
             {
+                string data = "";
                 OpenFileDialog openFileDialog1 = new OpenFileDialog();
                 // Set filter options and filter index.
                 openFileDialog1.Filter = "Bitmap Pictures (.bmp)|*.bmp";
@@ -39,26 +40,49 @@ namespace StegDiss
                             break;
                         default:
                             break;
-                        
                     }
+                    
+                }
+                Console.WriteLine("Please input text to be embedded or leave blank to load from file");
+                data = Console.ReadLine();
+                if (data == "")
+                {
+                    OpenFileDialog openFileDialog2 = new OpenFileDialog();
+                    openFileDialog2.Filter = "Text Files (.txt)|*.txt";
+                    openFileDialog2.FilterIndex = 1;
+                    openFileDialog2.ShowDialog();
+                    string txtpath = openFileDialog1.FileName;
+                    StreamReader sr = new StreamReader(txtpath);
+                    data = sr.ReadToEnd();
+                }
+
+                if (chosen == 2)
+                {
+                    filepath = filepath.Remove(filepath.Length - 4, 4) + "LSBE.bmp";
+                    currImg = LSBE.encode(data, currImg);
+                    currImg.Save(filepath, System.Drawing.Imaging.ImageFormat.Bmp);
                 }
                 if (chosen == 1)
                 {
-                    filepath = filepath.Remove(filepath.Length - 4, 4) + "LSBE.bmp";
-                    currImg = LSBE.encode("hellomate", currImg);
-                }
-                if (chosen == 2)
-                {
-                    filepath = filepath.Remove(filepath.Length - 4, 4) + "LSBO.bmp";
-                    currImg = LSB.encode("hellomate", currImg);
+                    Console.WriteLine("Would you like to 1.Encode or 2.Decode?");
+                    string choice = Console.ReadLine();
+                    if (choice == "1")
+                    {
+                        filepath = filepath.Remove(filepath.Length - 4, 4) + "LSBO.bmp";
+                        currImg = LSB.encode(data, currImg);
+                        currImg.Save(filepath, System.Drawing.Imaging.ImageFormat.Bmp);
+                    }
+                    else if (choice == "2")
+                    {
+                        Console.WriteLine(LSB.decode(currImg));
+                    }
                 }
 
-                currImg.Save(filepath, System.Drawing.Imaging.ImageFormat.Bmp);
-
+                
             }
             catch(System.IndexOutOfRangeException e)
             {
-                Console.WriteLine("You did not provide the correct input arguments, The correct Syntax is [Method] [Image file]");
+                Console.WriteLine(e);
             }
         }
     }
