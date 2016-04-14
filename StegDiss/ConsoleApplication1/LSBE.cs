@@ -8,8 +8,8 @@ namespace StegDiss
     {
         public static Bitmap encode(String text, Bitmap image)
         {
-            int imWidth = 0, imHeight = 0, bitCount = 0, textCount = 0;
-            int count = 0, asciiVal = 0, charcounter = 0;
+            int imWidth = 0, imHeight = 0, bitCount = 0;
+            int asciiVal = 0, charcounter = 0;
             imWidth = image.Width;
             imHeight = image.Height;
             asciiVal = text[charcounter++];
@@ -21,9 +21,9 @@ namespace StegDiss
                     //MixedColours will hold the values of pixel currently being used
                     Color pixel = image.GetPixel(x, y);
                     Color pixel2 = image.GetPixel(x + 1, y);
-                    int[] yn = new int[6];
-                    int[] xn = new int[6];
-                    int[] bn = new int[6];
+                    int[] yn = new int[7];
+                    int[] xn = new int[7];
+                    int[] bn = new int[7];
                     xn[1] = pixel.R;
                     xn[2] = pixel.G;
                     xn[3] = pixel.B;
