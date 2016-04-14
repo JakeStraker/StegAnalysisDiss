@@ -21,8 +21,38 @@ namespace StegDiss
                 FileStream fs = new FileStream(filepath, FileMode.Open);
                 Bitmap currImg = (Bitmap)Image.FromStream(fs);
                 fs.Close();
-                filepath = filepath.Remove(filepath.Length - 4, 4) + "LSBE.bmp";
-                currImg = LSBE.encode("hellomate", currImg);
+                bool validIn = false;
+                int chosen = 0;
+                while (validIn == false)
+                {
+                    Console.WriteLine("Please Select an embedding type\n1.LSB Original\n2.LSB Enhanced");
+                    string choice = Console.ReadLine();
+                    switch(choice)
+                    {
+                        case "1":
+                            chosen = 1;
+                            validIn = true;
+                            break;
+                        case "2":
+                            chosen = 2;
+                            validIn = true;
+                            break;
+                        default:
+                            break;
+                        
+                    }
+                }
+                if (chosen == 1)
+                {
+                    filepath = filepath.Remove(filepath.Length - 4, 4) + "LSBE.bmp";
+                    currImg = LSBE.encode("hellomate", currImg);
+                }
+                if (chosen == 2)
+                {
+                    filepath = filepath.Remove(filepath.Length - 4, 4) + "LSBO.bmp";
+                    currImg = LSB.encode("hellomate", currImg);
+                }
+
                 currImg.Save(filepath, System.Drawing.Imaging.ImageFormat.Bmp);
 
             }
