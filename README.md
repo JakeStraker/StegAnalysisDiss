@@ -1,1 +1,65 @@
 # StegAnalysisDiss
+Boolean Logic Based Steganography method following these rules (from the code)
+
+                    if (charcounter < text.Length)
+                    {
+                        Color pixel = image.GetPixel(x, y);
+                        Color pixel2 = image.GetPixel(x + 1, y);
+                        int[] yn = new int[7];
+                        int[] xn = new int[7];
+                        int[] bn = new int[7];
+                        xn[1] = pixel.R;
+                        xn[2] = pixel.G;
+                        xn[3] = pixel.B;
+                        xn[4] = pixel2.R;
+                        xn[5] = pixel2.G;
+                        xn[6] = pixel2.B;
+                        for (int k = 0; k < 6; k++)
+                        {
+                            nextCharbit(ref asciiVal, ref bitCount, text, ref charcounter);
+                            bn[k] = asciiVal % 2;
+                            yn[k] = xn[k];
+                        }
+                        for (int k = 1; k < 6; k += 2)
+                        {
+                            if ((xn[k] % 2) == bn[k] && (xn[k + 1] % 2) == bn[k + 1])
+                            {
+                                if (((xn[k] / 2) % 2) == 0)
+                                {
+                                    yn[k] = (yn[k] - (yn[k] % 2)) + invertBit(bn[k]);
+                                }
+                                else
+                                {
+                                    yn[k + 1] = (yn[k + 1] - (yn[k + 1] % 2)) + invertBit(bn[k + 1]);
+                                }
+                            }
+                            else if ((xn[k] % 2) != bn[k] && (xn[k + 1] % 2 != bn[k + 1]))
+                            {
+                                if (((xn[k] / 2) % 2) == 0)
+                                {
+                                    yn[k + 1] = (yn[k + 1] - (yn[k + 1] % 2)) + invertBit(bn[k + 1]);
+                                }
+                                else
+                                {
+                                    yn[k] = (yn[k] - (yn[k] % 2)) + invertBit(bn[k]);
+                                }
+                            }
+                            else if ((xn[k] % 2) == bn[k] && (xn[k + 1] % 2) != bn[k + 1])
+                            {
+                                int temp = yn[k] % 2;
+                                if ((yn[k] / 2) % 2 != 1)
+                                {
+                                    yn[k] = (2 * ((yn[k] / 2) + 1)) + temp;
+                                }
+                            }
+                            else if ((xn[k] % 2) != bn[k] && (xn[k + 1] % 2) == bn[k + 1])
+                            {
+                                int temp = yn[k] % 2;
+                                if ((yn[k] / 2) % 2 == 1)
+                                {
+                                    yn[k] = (2 * ((yn[k] / 2) - 1)) + temp;
+                                }
+                            }
+                        }
+                        image.SetPixel(x, y, Color.FromArgb(yn[1], yn[2], yn[3]));
+                        image.SetPixel(x + 1, y, Color.FromArgb(yn[3], yn[4], yn[6]));
